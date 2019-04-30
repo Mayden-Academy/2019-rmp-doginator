@@ -31,3 +31,36 @@ $sqlCreateImage = "CREATE TABLE `image` (
 $queryCreateImage = $db->prepare($sqlCreateImage);
 $queryCreateImage->execute();
 
+// create curl resource
+$ch = curl_init();
+
+// set url
+curl_setopt($ch, CURLOPT_URL, "https://dog.ceo/api/breeds/list/all");
+
+//return the transfer as a string
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+// $output contains the output string
+$output = curl_exec($ch);
+
+// close curl resource to free up system resources
+curl_close($ch);
+
+$obj = json_decode($output, true);
+//var_dump($obj);
+$breeds = [];
+
+
+foreach ($obj["message"] as $breed => $value) {
+    if(count($value) > 1){
+        foreach($value as $sub) {
+            $subBreed = $breed . "-" . $sub . "\n";
+            $breeds[] = $subBreed;
+        }
+    } else {
+        $dog = $breed ."\n";
+        $breeds[] = $dog;
+    }
+}
+
+var_dump($breeds);
