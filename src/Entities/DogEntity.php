@@ -9,7 +9,7 @@ class DogEntity
     private $breed;
     private $images = [];
 
-    public function __construct(int $breed_id, string $breed, array $images)
+    public function __construct(int $breed_id, string $breed, array $images=[])
     {
      $this->breed_id = $breed_id;
      $this->breed = $breed;

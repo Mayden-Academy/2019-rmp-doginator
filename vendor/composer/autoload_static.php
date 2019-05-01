@@ -25,17 +25,11 @@ class ComposerStaticInite95dfee21e70e863b072cf472e8df0dc
         ),
     );
 
-    public static $classMap = array (
-        'Doginator\\DBconnector' => __DIR__ . '/../..' . '/src/DBconnector.php',
-        'Doginator\\Entities\\DogEntity' => __DIR__ . '/../..' . '/src/Entities/DogEntity.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInite95dfee21e70e863b072cf472e8df0dc::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInite95dfee21e70e863b072cf472e8df0dc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite95dfee21e70e863b072cf472e8df0dc::$classMap;
 
         }, null, ClassLoader::class);
     }

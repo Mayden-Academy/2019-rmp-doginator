@@ -6,6 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Doginator\\DBconnector' => $baseDir . '/src/DBconnector.php',
-    'Doginator\\Entities\\DogEntity' => $baseDir . '/src/Entities/DogEntity.php',
 );
