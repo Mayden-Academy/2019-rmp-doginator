@@ -9,11 +9,16 @@ class ComposerStaticInite95dfee21e70e863b072cf472e8df0dc
     public static $prefixLengthsPsr4 = array (
         'D' => 
         array (
+            'Doginator\\Entities\\' => 19,
             'Doginator\\' => 10,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Doginator\\Entities\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Entities',
+        ),
         'Doginator\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',

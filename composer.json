@@ -1,7 +1,8 @@
 {
     "autoload": {
         "psr-4": {
-            "Doginator\\": "src/"
+            "Doginator\\": "src/",
+            "Doginator\\Entities\\": "src/Entities"
         }
     },
     "require": {}
