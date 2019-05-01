@@ -34,9 +34,9 @@ $queryCreateImage->execute();
 /**
  * Helper function for making API calls.
  * @param string $url is the url that you are making the API call to.
- * @return array is the Json response converted to php array.
+ * @return stdClass is the Json response converted to php array.
  */
-function makeAPICall(string $url) :array {
+function makeAPICall(string $url): stdClass {
     // create curl resource
     $curlRequest = curl_init();
 
@@ -49,10 +49,39 @@ function makeAPICall(string $url) :array {
     //$response contains the output string
     $response = curl_exec($curlRequest);
 
-    //converts to $response into php array and then return it
+    //converts to $response into php object and then return it
     return json_decode($response)->message;
 }
 
-$responseArray = makeAPICall("https://dog.ceo/api/breeds/list/all");
-var_dump($responseArray);
 
+
+function insertBreed($db, $breedName) {
+    echo $breedName . "\n";
+    $statement = $db->prepare('INSERT INTO `breed` (name) VALUES (:bname)');
+    $statement->execute([
+        'bname' => $breedName
+
+    ]);
+
+
+}
+
+
+$responseObj = makeAPICall("https://dog.ceo/api/breeds/list/all");
+$breeds = [];
+echo "Populating breed table\n";
+
+foreach ($responseObj as $breed => $value) {
+    $breedName;
+    if (count($value) > 0) {
+        foreach ($value as $subBreed) {
+            $breedName = $breed . "/" . $subBreed;
+            array_push($breeds, $breedName);
+            insertBreed($db, $breedName);
+        }
+    } else {
+        $breedName = $breed;
+        array_push($breeds, $breedName);
+        insertBreed($db, $breedName);
+    }
+}
