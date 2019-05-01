@@ -49,8 +49,11 @@ function makeAPICall(string $url): stdClass {
     //$response contains the output string
     $response = curl_exec($curlRequest);
 
+    //close curl resource to free up system resources.
+    curl_close($curlRequest);
+
     //converts to $response into php object and then return it
-    return json_decode($response)->message;
+    return json_decode($response);
 }
 
 
@@ -68,6 +71,7 @@ function insertBreed($db, $breedName) {
 
 
 $responseObj = makeAPICall("https://dog.ceo/api/breeds/list/all");
+$responseObj = $responseObj->message;
 $breeds = [];
 echo "Populating breed table\n";
 
@@ -84,4 +88,23 @@ foreach ($responseObj as $breed => $value) {
         array_push($breeds, $breedName);
         insertBreed($db, $breedName);
     }
+}
+
+
+echo "Populating the images table\n";
+$breedId = 1;
+foreach ($breeds as $breed) {
+    $responseObj = makeAPICall('https://dog.ceo/api/breed/' . $breed . '/images');
+    $responseObj = $responseObj->message;
+    foreach ($responseObj as $url) {
+        echo $url . "\n";
+        $statement = $db->prepare('INSERT INTO `image` (url, breed_id) VALUES (:url, :breed_id)');
+        $statement->execute([
+             'url' => $url,
+            'breed_id' => $breedId,
+        ]);
+    } 
+    $breedId++;
+
+
 }
