@@ -56,19 +56,18 @@ function makeAPICall(string $url): stdClass {
     return json_decode($response);
 }
 
-
-
+/**
+ * insertBreed inserts the breed name into the breeds table
+ * @param $db  connection to data-base
+ * @param $breedName contains the breed name.
+ */
 function insertBreed($db, $breedName) {
     echo $breedName . "\n";
     $statement = $db->prepare('INSERT INTO `breed` (name) VALUES (:bname)');
     $statement->execute([
         'bname' => $breedName
-
     ]);
-
-
 }
-
 
 $responseObj = makeAPICall("https://dog.ceo/api/breeds/list/all");
 $responseObj = $responseObj->message;
@@ -90,8 +89,8 @@ foreach ($responseObj as $breed => $value) {
     }
 }
 
-
 echo "Populating the images table\n";
+
 $breedId = 1;
 foreach ($breeds as $breed) {
     $responseObj = makeAPICall('https://dog.ceo/api/breed/' . $breed . '/images');
@@ -105,6 +104,4 @@ foreach ($breeds as $breed) {
         ]);
     } 
     $breedId++;
-
-
 }
