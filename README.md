@@ -20,9 +20,9 @@ Description
 Usage
 =====
 
-1. Create a database called 'doginator'.
-2. Go to APIscrape/APIscrape.php and edit the value of constants IP, USER and PASSWORD to your 
-IP address, a DB user name and a DB access password.
+1. Go to APIscrape/APIscrape.php and edit the value of constants DBNAME, HOST, USER and PASSWORD to your 
+   IP address, a DB user name and password and a name of a database which you will create.
+2. Create a database using a name you have set in a constant DBNAME.
 3. Run 'php APIscrape.php' command in your Terminal.
 4. You're done. The DB will be updated and populated for you.
  
