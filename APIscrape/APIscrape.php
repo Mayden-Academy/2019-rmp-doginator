@@ -31,3 +31,77 @@ $sqlCreateImage = "CREATE TABLE `image` (
 $queryCreateImage = $db->prepare($sqlCreateImage);
 $queryCreateImage->execute();
 
+/**
+ * Helper function for making API calls.
+ * @param string $url is the url that you are making the API call to.
+ * @return stdClass is the Json response converted to php array.
+ */
+function makeAPICall(string $url): stdClass {
+    // create curl resource
+    $curlRequest = curl_init();
+
+    //set url
+    curl_setopt($curlRequest, CURLOPT_URL, $url);
+
+    //return the transfer as a string
+    curl_setopt($curlRequest, CURLOPT_RETURNTRANSFER, 1);
+
+    //$response contains the output string
+    $response = curl_exec($curlRequest);
+
+    //close curl resource to free up system resources.
+    curl_close($curlRequest);
+
+    //converts to $response into php object and then return it
+    return json_decode($response);
+}
+
+/**
+ * insertBreed inserts the breed name into the breeds table
+ * @param $db  connection to data-base
+ * @param $breedName contains the breed name.
+ */
+function insertBreed($db, $breedName) {
+    echo $breedName . "\n";
+    $statement = $db->prepare('INSERT INTO `breed` (name) VALUES (:bname)');
+    $statement->execute([
+        'bname' => $breedName
+    ]);
+}
+
+$responseObj = makeAPICall("https://dog.ceo/api/breeds/list/all");
+$responseObj = $responseObj->message;
+$breeds = [];
+echo "Populating breed table\n";
+
+foreach ($responseObj as $breed => $value) {
+    $breedName;
+    if (count($value) > 0) {
+        foreach ($value as $subBreed) {
+            $breedName = $breed . "/" . $subBreed;
+            array_push($breeds, $breedName);
+            insertBreed($db, $breedName);
+        }
+    } else {
+        $breedName = $breed;
+        array_push($breeds, $breedName);
+        insertBreed($db, $breedName);
+    }
+}
+
+echo "Populating the images table\n";
+
+$breedId = 1;
+foreach ($breeds as $breed) {
+    $responseObj = makeAPICall('https://dog.ceo/api/breed/' . $breed . '/images');
+    $responseObj = $responseObj->message;
+    foreach ($responseObj as $url) {
+        echo $url . "\n";
+        $statement = $db->prepare('INSERT INTO `image` (url, breed_id) VALUES (:url, :breed_id)');
+        $statement->execute([
+             'url' => $url,
+            'breed_id' => $breedId,
+        ]);
+    } 
+    $breedId++;
+}
