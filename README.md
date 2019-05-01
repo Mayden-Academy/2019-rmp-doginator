@@ -14,7 +14,7 @@ Description
 3. Executes an SQL query which creates new tables.
 4. Creates a request to API using  htts://dog.ceo/api/breeds/list/all
 5. Receives a response in a JSON format and decodes it.
-6. Populates created data with received data.
+6. Populates created tables with received data.
 
 
 Usage
