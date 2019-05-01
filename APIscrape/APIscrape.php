@@ -31,36 +31,28 @@ $sqlCreateImage = "CREATE TABLE `image` (
 $queryCreateImage = $db->prepare($sqlCreateImage);
 $queryCreateImage->execute();
 
-// create curl resource
-$ch = curl_init();
+/**
+ * Helper function for making API calls.
+ * @param string $url is the url that you are making the API call to.
+ * @return array is the Json response converted to php array.
+ */
+function makeAPICall(string $url) :array {
+    // create curl resource
+    $curlRequest = curl_init();
 
-// set url
-curl_setopt($ch, CURLOPT_URL, "https://dog.ceo/api/breeds/list/all");
+    //set url
+    curl_setopt($curlRequest, CURLOPT_URL, $url);
 
-//return the transfer as a string
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    //return the transfer as a string
+    curl_setopt($curlRequest, CURLOPT_RETURNTRANSFER, 1);
 
-// $output contains the output string
-$output = curl_exec($ch);
+    //$response contains the output string
+    $response = curl_exec($curlRequest);
 
-// close curl resource to free up system resources
-curl_close($ch);
-
-$obj = json_decode($output, true);
-//var_dump($obj);
-$breeds = [];
-
-
-foreach ($obj["message"] as $breed => $value) {
-    if(count($value) > 1){
-        foreach($value as $sub) {
-            $subBreed = $breed . "-" . $sub . "\n";
-            $breeds[] = $subBreed;
-        }
-    } else {
-        $dog = $breed ."\n";
-        $breeds[] = $dog;
-    }
+    //converts to $response into php array and then return it
+    return json_decode($response)->message;
 }
 
-var_dump($breeds);
+$responseArray = makeAPICall("https://dog.ceo/api/breeds/list/all");
+var_dump($responseArray);
+
