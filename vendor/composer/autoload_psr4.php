@@ -6,6 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Doginator\\Entities\\' => array($baseDir . '/src/Entities'),
     'Doginator\\' => array($baseDir . '/src'),
 );
