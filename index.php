@@ -1,3 +1,16 @@
+<?php
+
+require_once 'vendor/autoload.php';
+use Doginator\DBconnector;
+use Doginator\Hydrators\DogHydrator;
+
+$dbConnector = new DBconnector();
+$dbConnection= $dbConnector->getConnection();
+
+$allDogEntities = DogHydrator::getDogEntities($dbConnection);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +29,7 @@
             <img src="Assets/Images/bone.svg" class="bone">
             <h1>DOGINATOR</h1>
         </div>
-        
+
         <img src="Assets/Images/background-dog.svg" class="dog">
 
         <div class="dropdown show">
@@ -25,18 +38,16 @@
             </a>
 
             <div class="dropdown-menu scrollable-menu" id="dropdown-content" aria-labelledby="dropdownMenuLink">
-                <!--links to populate with foreach loop in php-->
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-
+                <?php
+                foreach ($allDogEntities as $dogEntity) {
+                    $id = $dogEntity->getBreedId();
+                    $breed = $dogEntity->getBreed();
+                    echo '<a class="dropdown-item" href="http://192.168.20.20/2019-rmp-doginator/gallery.php?id=' . $id . '">' . $breed . '</a>';
+                }
+                ?>
             </div>
-        </div>
 
+        </div>
 
     </div>
 
