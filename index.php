@@ -25,14 +25,9 @@
             </a>
 
             <div class="dropdown-menu scrollable-menu" id="dropdown-content" aria-labelledby="dropdownMenuLink">
+                <?php $breed_id = 31; ?>
                 <!--links to populate with foreach loop in php-->
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="http://192.168.20.20/2019-rmp-doginator/gallery.php?id=<?php echo $breed_id; ?>">Action</a>
 
             </div>
         </div>
