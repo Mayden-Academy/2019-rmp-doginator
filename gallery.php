@@ -1,3 +1,8 @@
+<?php
+    require_once ('src/DBconnector.php');
+    require_once ('src/Hydrators/DogHydrator.php');
+    require_once ('src/Entities/DogEntity.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +29,14 @@
 
         <div class="dropdown show gallery-dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Pick a breed
+                <?php
+                $id = $_GET['id'];
+                $dog = new \Doginator\Entities\DogEntity($id, 'lalalal', $images=[]);
+                $breed = $dog->getBreed();
+                echo $breed;
+                ?>
             </a>
+
             <div class="dropdown-menu scrollable-menu" id="dropdown-content" aria-labelledby="dropdownMenuLink">
                 <!--links to populate with foreach loop in php-->
                 <a class="dropdown-item" href="#">Action</a>
