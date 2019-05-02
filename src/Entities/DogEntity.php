@@ -9,20 +9,23 @@ class DogEntity
     private $breed;
     private $images = [];
 
-    public function __construct(int $breed_id, string $breed, array $images=[])
+    public function __construct(int $breed_id = 1, string $breed = '', array $images=[])
     {
      $this->breed_id = $breed_id;
      $this->breed = $breed;
      $this->images = $images;
 
     }
+    /**
+     * @return integer
+     */
     public function getBreedId()
     {
         return $this->breed_id;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getBreed()
     {

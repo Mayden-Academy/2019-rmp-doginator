@@ -1,5 +1,5 @@
 <?php
-require_once ('src/DBconnector.php');
+
 require_once ('src/Hydrators/DogHydrator.php');
 require_once ('src/Entities/DogEntity.php');
 require_once 'vendor/autoload.php';
@@ -65,28 +65,26 @@ $allDogEntities = DogHydrator::getDogEntities($dbConnection);
                 <!--links to populate with foreach loop in php-->
                 <?php
                 foreach ($allDogEntities as $dogEntity) {
-                    $id = $dogEntity->getBreedId();
-                    $breed = $dogEntity->getBreed();
-                    echo '<a class="dropdown-item" href="http://192.168.20.20/2019-rmp-doginator/gallery.php?id=' . $id . '">' . $breed . '</a>';
+                    echo '<a class="dropdown-item" href="gallery.php?id=' . $dogEntity->getBreedId() . '">' . $dogEntity->getBreed() . '</a>';
                 }
                 ?>
             </div>
         </div>
 
-<!--        <div class="container">-->
             <div class="row">
                 <?php
-                if (empty($dog) || empty($dog->getImages())) {
-                    echo 'There are no pictures for this breed';
-                } else {
-                foreach ($dog->getImages() as $image) {
-                    echo '<div class="col-4 img-container">
-                    <img src="'. $image . '">
-                </div>';
+                    if (empty($dog) || empty($dog->getImages())) {
+                        echo '<p class="alert alert-danger">There is no pictures for this breed</p>';
+                    } else {
+                        foreach ($dog->getImages() as $image) {
+                            echo '<div class="col-4 img-container">
+                                  <img src="'. $image . '">
+                                  </div>';
+                        }
                     }
-                }?>
+                ?>
             </div>
-<!--        </div>-->
+
     </div>
 </body>
 </html>
