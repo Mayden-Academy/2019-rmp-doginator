@@ -30,4 +30,22 @@ class TestDogEntity extends TestCase
 
         $this->assertEquals(['url.com'], $dogImgs);
     }
+
+    public function testGetBreedID_failure ()
+    {
+        $this->expectException(TypeError::class);
+        new DogEntity([], 'rty');
+    }
+
+    public function testGetBreed_failure ()
+    {
+        $this->expectException(TypeError::class);
+        new DogEntity(1, []);
+    }
+
+    public function testGetImages_failure ()
+    {
+        $this->expectException(TypeError::class);
+        new DogEntity(1, "colly", 'dfg');
+    }
 }
