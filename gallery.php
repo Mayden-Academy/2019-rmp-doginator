@@ -40,7 +40,7 @@ $allDogEntities = DogHydrator::getDogEntities($dbConnection);
             </div>
         </div>
         <?php
-                if(empty($_GET['id']) || $_GET['id'] < 1 || !is_numeric($_GET['id'])){
+                if(empty($_GET['id']) || !is_numeric($_GET['id']) || $_GET['id'] < 1) {
                     echo '<div class="alert alert-danger">You have not selected a valid breed. Please select one from the dropdown below</div>';
                 } else {
                     $id = $_GET['id'];
