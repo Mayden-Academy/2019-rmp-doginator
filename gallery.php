@@ -57,7 +57,7 @@
                     echo 'There are no pictures for this breed';
                 } else {
                 foreach ($dog->getImages() as $image) {
-                    echo '<div class="img-container">
+                    echo '<div class="col-4 img-container">
                     <img src="'. $image . '">
                 </div>';
                     }
