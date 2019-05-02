@@ -41,15 +41,23 @@ $allDogEntities = DogHydrator::getDogEntities($dbConnection);
                 <img src="Assets/Images/logo.svg" class="logo">
             </div>
         </div>
-
+        <?php
+                if(empty($_GET['id'])){
+                    echo '<div class="alert alert-danger">You have not selected a valid breed. Please select one from the dropdown below</div>';
+                } else {
+                    $id = $_GET['id'];
+                    $dbConnection = new \Doginator\DBconnector();
+                    $dog = \Doginator\Hydrators\DogHydrator::getDogEntity($dbConnection->getConnection(), $id);
+                }
+        ?>
         <div class="dropdown show gallery-dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php
-                $id = $_GET['id'];
-                $dbConnection = new \Doginator\DBconnector();
-                $dog = \Doginator\Hydrators\DogHydrator::getDogEntity($dbConnection->getConnection(), $id);
-                $breed = $dog->getBreed();
-                echo $breed;
+                if (!empty($dog)) {
+                    echo $dog->getBreed();
+                } else {
+                    echo 'No breed selected';
+                }
                 ?>
             </a>
 
@@ -68,7 +76,7 @@ $allDogEntities = DogHydrator::getDogEntities($dbConnection);
 <!--        <div class="container">-->
             <div class="row">
                 <?php
-                if (empty($dog->getImages())) {
+                if (empty($dog) || empty($dog->getImages())) {
                     echo 'There are no pictures for this breed';
                 } else {
                 foreach ($dog->getImages() as $image) {
