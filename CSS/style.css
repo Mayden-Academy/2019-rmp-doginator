@@ -2,13 +2,10 @@
 
 * {
     box-sizing: border-box;
+    font-family: 'Love Ya Like A Sister', cursive;
 }
 
 /*===================================================================================== INDEX PAGE */
-
-.content-container {
-    font-family: 'Love Ya Like A Sister', cursive;
-}
 
 .bone {
     width: 50%;
@@ -17,8 +14,9 @@
     z-index: -1;
 }
 
-.header {
+.container .header {
     position: relative;
+    display: inline-block;
 
 }
 
@@ -63,22 +61,23 @@ h1 {
 .logo {
     width: 15%;
     padding: 1%;
+    display: inline-block;
 }
 
 .gallery-bone {
-    margin: 4% 0 0 -10%;
+    margin: 8% 0 0 -24%;
     width: 70%;
 }
 
-.gallery-title {
+.container .gallery-title {
     font-size: 5rem;
 }
 
-.gallery-dropdown {
+.container .gallery-dropdown {
     margin: 1%;
 }
 
-.img-container {
+.container .img-container {
     max-width: 33%;
     text-align: center;
 }
