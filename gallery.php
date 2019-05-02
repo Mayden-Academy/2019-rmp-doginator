@@ -1,7 +1,5 @@
 <?php
 
-require_once ('src/Hydrators/DogHydrator.php');
-require_once ('src/Entities/DogEntity.php');
 require_once 'vendor/autoload.php';
 use Doginator\DBconnector;
 use Doginator\Hydrators\DogHydrator;
@@ -42,12 +40,12 @@ $allDogEntities = DogHydrator::getDogEntities($dbConnection);
             </div>
         </div>
         <?php
-                if(empty($_GET['id'])){
+                if(empty($_GET['id']) || $_GET['id'] < 1 || !is_numeric($_GET['id'])){
                     echo '<div class="alert alert-danger">You have not selected a valid breed. Please select one from the dropdown below</div>';
                 } else {
                     $id = $_GET['id'];
-                    $dbConnection = new \Doginator\DBconnector();
-                    $dog = \Doginator\Hydrators\DogHydrator::getDogEntity($dbConnection->getConnection(), $id);
+                    $dbConnection = new DBconnector();
+                    $dog = DogHydrator::getDogEntity($dbConnection->getConnection(), $id);
                 }
         ?>
         <div class="dropdown show gallery-dropdown">

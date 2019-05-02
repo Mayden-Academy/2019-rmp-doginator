@@ -40,7 +40,7 @@ $allDogEntities = DogHydrator::getDogEntities($dbConnection);
             <div class="dropdown-menu scrollable-menu" id="dropdown-content" aria-labelledby="dropdownMenuLink">
                 <?php
                 foreach ($allDogEntities as $dogEntity) {
-                    echo '<a class="dropdown-item" href="http://192.168.20.20/2019-rmp-doginator/gallery.php?id=' . $dogEntity->getBreedId() . '">' . $dogEntity->getBreed() . '</a>';
+                    echo '<a class="dropdown-item" href="gallery.php?id=' . $dogEntity->getBreedId() . '">' . $dogEntity->getBreed() . '</a>';
                 }
                 ?>
             </div>
