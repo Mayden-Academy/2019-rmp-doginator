@@ -26,7 +26,6 @@ class DogHydrator
         }
         $dog = new DogEntity($breed_id, $name, $dogImgsArray);
         return $dog;
-
    }
 
    public static function getDogEntities($dbConnection)
