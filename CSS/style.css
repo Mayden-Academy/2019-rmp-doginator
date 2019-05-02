@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Love Ya Like A Sister', cursive;
+}
+
+/*===================================================================================== INDEX PAGE */
+
+.bone {
+    width: 50%;
+    position: absolute;
+    left: 26%;
+    z-index: -1;
+}
+
+.container .header {
+    position: relative;
+    display: inline-block;
+
+}
+
+h1 {
+    z-index: 2;
+    text-align: center;
+    padding: 3% 0 0 0;
+    font-size: 5rem;
+}
+
+.dropdown {
+    text-align: center;
+    margin: 22% 0 0 2%;
+}
+
+#dropdownMenuLink {
+    background-color: #FFCFDB;
+    color: #000000;
+    font-size: 1.5rem;
+}
+
+#dropdown-content {
+    background-color: #FFCFDB;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 400%;
+    overflow-x: hidden;
+}
+
+.dog {
+    width: 84%;
+    z-index: -2;
+    position: absolute;
+    left: 7%;
+    top: -5%;
+}
+
+/*===================================================================================== GALLERY PAGE */
+
+.logo {
+    width: 15%;
+    padding: 1%;
+    display: inline-block;
+}
+
+.gallery-bone {
+    margin: 8% 0 0 -24%;
+    width: 70%;
+}
+
+.container .gallery-title {
+    font-size: 5rem;
+}
+
+.container .gallery-dropdown {
+    margin: 1%;
+}
+
+.container .img-container {
+    max-width: 33%;
+    text-align: center;
+}
+
+.container img {
+    width: 100%;
+}

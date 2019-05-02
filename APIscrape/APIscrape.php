@@ -1,6 +1,9 @@
 <?php
-
-$db = new PDO("mysql:host=192.168.20.20;dbname=doginator", 'root', '');
+define("HOST", "192.168.20.20" );
+define("DBNAME", "doginator" );
+define("USER", "root" );
+define("PASSWORD", "" );
+$db = new PDO('mysql:host='.HOST.';dbname='.DBNAME, USER, PASSWORD);
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 $sqlDropImage = "DROP TABLE IF EXISTS `image`;";
@@ -58,10 +61,10 @@ function makeAPICall(string $url): stdClass {
 
 /**
  * insertBreed inserts the breed name into the breeds table
- * @param $db  connection to data-base
- * @param $breedName contains the breed name.
+ * @param $db  PDO connection to data-base
+ * @param $breedName string contains the breed name.
  */
-function insertBreed($db, $breedName) {
+function insertBreed($db, string $breedName) {
     echo $breedName . "\n";
     $statement = $db->prepare('INSERT INTO `breed` (name) VALUES (:bname)');
     $statement->execute([
@@ -75,7 +78,6 @@ $breeds = [];
 echo "Populating breed table\n";
 
 foreach ($responseObj as $breed => $value) {
-    $breedName;
     if (count($value) > 0) {
         foreach ($value as $subBreed) {
             $breedName = $breed . "/" . $subBreed;
@@ -102,6 +104,6 @@ foreach ($breeds as $breed) {
              'url' => $url,
             'breed_id' => $breedId,
         ]);
-    } 
+    }
     $breedId++;
 }
