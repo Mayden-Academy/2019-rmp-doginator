@@ -20,8 +20,8 @@ class DogHydrator
         $results = $statement->fetchAll();
         $dogImgsArray = [];
         $name = $results [0]['name'];
-        foreach ($results as $breed) {
-            $url = $breed['url'];
+        foreach ($results as $result) {
+            $url = $result['url'];
             array_push($dogImgsArray, $url);
         }
         $dog = new DogEntity($breed_id, $name, $dogImgsArray);
