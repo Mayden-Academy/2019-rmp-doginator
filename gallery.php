@@ -31,7 +31,8 @@
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php
                 $id = $_GET['id'];
-                $dog = new \Doginator\Entities\DogEntity($id, 'lalalal', $images=[]);
+                $dbConnection = new \Doginator\DBconnector();
+                $dog = \Doginator\Hydrators\DogHydrator::getDogEntity($dbConnection->getConnection(), $id);
                 $breed = $dog->getBreed();
                 echo $breed;
                 ?>
@@ -51,15 +52,16 @@
 
         <div class="container">
             <div class="row">
-                <div class="col img-container">
-                    <img src="Assets/Images/dogPlaceholder.jpg">
-                </div>
-                <div class="col img-container">
-                    <img src="Assets/Images/dogPlaceholder.jpg">
-                </div>
-                <div class="col img-container">
-                    <img src="Assets/Images/dogPlaceholder.jpg">
-                </div>
+                <?php
+                if (empty($dog->getImages())) {
+                    echo 'There are no pictures for this breed';
+                } else {
+                foreach ($dog->getImages() as $image) {
+                    echo '<div class="img-container">
+                    <img src="'. $image . '">
+                </div>';
+                    }
+                }?>
             </div>
         </div>
     </div>
